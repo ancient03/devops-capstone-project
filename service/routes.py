@@ -50,10 +50,10 @@ def create_accounts():
     account.deserialize(request.get_json())
     account.create()
     message = account.serialize()
-    
+
     # Mengaktifkan kembali url_for karena read_account (get_accounts) sudah diimplementasikan
     location_url = url_for("get_accounts", account_id=account.id, _external=True)
-    
+
     return make_response(
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
     )
@@ -87,7 +87,7 @@ def get_accounts(account_id):
 
     # 1. Gunakan method Account.find() untuk mencari akun berdasarkan ID
     account = Account.find(account_id)
-    
+
     # 2. Lakukan abort() dengan status 404 jika akun tidak ditemukan
     if not account:
         abort(status.HTTP_404_NOT_FOUND, f"Account with id [{account_id}] could not be found.")
@@ -130,7 +130,7 @@ def delete_accounts(account_id):
     account = Account.find(account_id)
     if account:
         account.delete()
-        
+
     return "", status.HTTP_204_NO_CONTENT
 
 
